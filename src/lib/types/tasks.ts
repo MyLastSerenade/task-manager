@@ -2,8 +2,8 @@ export type Task = {
 	title: string;
 	content: string;
 	state: State;
-	creation_date: string;
-	change_date: string;
+	//creation_date: string;
+	//change_date: string;
 };
 
 export enum State {
