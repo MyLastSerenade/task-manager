@@ -7,7 +7,7 @@
 		<ul>
 			<li>
 				<button
-					class="bg-gray-800 text-teal-500 hover:bg-gray-700 hover:text-white py-2 px-4 rounded-md mr-4"
+					class="mr-4 rounded-md bg-gray-800 px-4 py-2 text-teal-500 hover:bg-gray-700 hover:text-white"
 					>Create Task</button
 				>
 			</li>
