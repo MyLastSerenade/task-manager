@@ -37,7 +37,7 @@
 	}
 </script>
 
-<!-- svelte-ignore non-state-reference -->
+
 <nav class="bg-gray-900 py-4">
 	<div class="container mx-4 flex items-center justify-between">
 		<ul>

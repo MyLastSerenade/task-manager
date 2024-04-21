@@ -1,7 +1,7 @@
 export type Task = {
 	title: string;
 	content: string;
-	state: State;
+	taskState: State;
 	//creation_date: string;
 	//change_date: string;
 };
