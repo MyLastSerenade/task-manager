@@ -39,6 +39,6 @@
 {#if modal}
 <Modal>
     <p>test</p>
-</Modal>
+</Modal bind:modal>
 {/if}
 </div>
