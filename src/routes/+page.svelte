@@ -2,11 +2,14 @@
 	import { onMount } from 'svelte';
 	import TaskCard from '../components/TaskCard.svelte';
 	import Modal from '../components/Modal.svelte';
-	import type { Task } from '$lib/types/tasks';
+	import { State, type Task } from '$lib/types/tasks';
 
-	const tasks: string[] = ['task', 'task', 'task', 'task'];
+	let allTasks: Task[] = [];
+	const drafts: Task[] = $state([]);
+	const inProgress: Task[] = $state([]);
+	const done: Task[] = $state([]);
+	const canceled: Task[] = $state([]);
 
-	let tasksFromStorage: Task[] = [];
 	let modal: boolean = false;
 
 	onMount(() => {
@@ -14,68 +17,102 @@
 	});
 
 	function checkIfTasksInStorage() {
-		const tasks = localStorage.getItem('tasks');
-		if (!tasks) {
-			modal = true;
-			return;
+		allTasks = JSON.parse(localStorage.getItem('tasks') ?? '');
+		console.log(allTasks)
+		if (allTasks) {
+			allTasks.forEach((element) => {
+				if (element.taskState === State.DRAFT) {
+					drafts.push(element);
+					return;
+				}
+				if (element.taskState === State.IN_PROGRESS) {
+					inProgress.push(element);
+					return;
+				}
+				if (element.taskState === State.DONE) {
+					done.push(element);
+					return;
+				}
+				if (element.taskState === State.CANCELED) {
+					canceled.push(element);
+					return;
+				}
+			});
 		}
-		tasksFromStorage = JSON.parse(tasks);
+		modal = true;
+		return;
 	}
 </script>
 
 <div class="relative h-full w-full">
-	<div class="m-4 flex flex-row gap-4">
-		<div class="flex flex-col gap-4">
+	<div class="p-4 w-full h-full flex flex-row gap-4 border-4 border-purple-900">
+		<div class="flex w-1/4 flex-col gap-4">
 			<h2>Drafts</h2>
-			{#each tasks as task, index}
-				<TaskCard>
-					<p>{task} - {index}</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque suscipit
-						numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt repellat eum
-						fuga, dolore deserunt, illo vitae quam omnis!
-					</p>
-				</TaskCard>
-			{/each}
+			{#if drafts}
+				{#each drafts as task, index}
+					<TaskCard>
+						<p>{task} - {index}</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
+							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
+							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
+						</p>
+					</TaskCard>
+				{/each}
+			{:else}
+				<p>No Draft Tasks available</p>
+			{/if}
 		</div>
-		<div class="flex flex-col gap-4">
+		<div class="flex w-1/4 flex-col gap-4">
 			<h2>In Progress</h2>
-			{#each tasks as task, index}
-				<TaskCard>
-					<p>{task} - {index}</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque suscipit
-						numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt repellat eum
-						fuga, dolore deserunt, illo vitae quam omnis!
-					</p>
-				</TaskCard>
-			{/each}
+			{#if inProgress}
+				{#each inProgress as task, index}
+					<TaskCard>
+						<p>{task.title}</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
+							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
+							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
+						</p>
+					</TaskCard>
+				{/each}
+			{:else}
+				<p>No in Progress Tasks available</p>
+			{/if}
 		</div>
-		<div class="flex flex-col gap-4">
+		<div class="flex w-1/4 flex-col gap-4">
 			<h2>Done</h2>
-			{#each tasks as task, index}
-				<TaskCard>
-					<p>{task} - {index}</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque suscipit
-						numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt repellat eum
-						fuga, dolore deserunt, illo vitae quam omnis!
-					</p>
-				</TaskCard>
-			{/each}
+			{#if done}
+				{#each done as task, index}
+					<TaskCard>
+						<p>{task} - {index}</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
+							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
+							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
+						</p>
+					</TaskCard>
+				{/each}
+			{:else}
+				<p>No Done Tasks available</p>
+			{/if}
 		</div>
-		<div class="flex flex-col gap-4">
+		<div class="flex w-1/4 flex-col gap-4">
 			<h2>Canceled</h2>
-			{#each tasks as task, index}
-				<TaskCard>
-					<p>{task} - {index}</p>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque suscipit
-						numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt repellat eum
-						fuga, dolore deserunt, illo vitae quam omnis!
-					</p>
-				</TaskCard>
-			{/each}
+			{#if canceled}
+				{#each canceled as task, index}
+					<TaskCard>
+						<p>{task} - {index}</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
+							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
+							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
+						</p>
+					</TaskCard>
+				{/each}
+			{:else}
+				<p>No Canceled Tasks available</p>
+			{/if}
 		</div>
 	</div>
 </div>

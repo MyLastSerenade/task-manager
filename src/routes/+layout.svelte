@@ -37,8 +37,8 @@
 	}
 </script>
 
-<nav class="bg-gray-900 py-4">
-	<div class="container mx-4 flex items-center justify-between">
+<nav class="bg-gray-900 py-4 w-full overflow-hidden">
+	<div class="container flex items-center justify-between">
 		<ul>
 			<li>
 				<button
