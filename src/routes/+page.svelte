@@ -44,20 +44,13 @@
 	}
 </script>
 
-<div class="relative h-full w-full">
+<div class="h-full w-full">
 	<div class="p-4 w-full h-full flex flex-row gap-4 border-4 border-purple-900">
 		<div class="flex w-1/4 flex-col gap-4">
 			<h2>Drafts</h2>
 			{#if drafts}
 				{#each drafts as task, index}
-					<TaskCard>
-						<p>{task} - {index}</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
-							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
-							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
-						</p>
-					</TaskCard>
+					<TaskCard {task} />
 				{/each}
 			{:else}
 				<p>No Draft Tasks available</p>
@@ -67,14 +60,7 @@
 			<h2>In Progress</h2>
 			{#if inProgress}
 				{#each inProgress as task, index}
-					<TaskCard>
-						<p>{task.title}</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
-							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
-							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
-						</p>
-					</TaskCard>
+				<TaskCard {task} />
 				{/each}
 			{:else}
 				<p>No in Progress Tasks available</p>
@@ -84,14 +70,7 @@
 			<h2>Done</h2>
 			{#if done}
 				{#each done as task, index}
-					<TaskCard>
-						<p>{task} - {index}</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
-							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
-							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
-						</p>
-					</TaskCard>
+				<TaskCard {task} />
 				{/each}
 			{:else}
 				<p>No Done Tasks available</p>
@@ -101,14 +80,7 @@
 			<h2>Canceled</h2>
 			{#if canceled}
 				{#each canceled as task, index}
-					<TaskCard>
-						<p>{task} - {index}</p>
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quae harum itaque
-							suscipit numquam. Aspernatur, similique explicabo. Ipsum doloribus autem nesciunt
-							repellat eum fuga, dolore deserunt, illo vitae quam omnis!
-						</p>
-					</TaskCard>
+				<TaskCard {task} />
 				{/each}
 			{:else}
 				<p>No Canceled Tasks available</p>
