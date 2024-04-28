@@ -5,37 +5,39 @@
 
 	let modalnav: boolean = $state(false);
 
-
+	let tasks: Task[] = $state([]);
 	let title: string = $state('');
 	let content: string = $state('');
 	let taskState: State = $state(<State>'IN_PROGRESS');
-
 	function onclick() {
-		console.log('testnav');
 		modalnav = true;
 	}
 
 	function addTask() {
-		const tasks = $state(localStorage.getItem('tasks'));
-		let taskList: Task[] = [];
 		const newTask = {
 			title: title,
 			content: content,
 			taskState: taskState
 		};
-		taskList.push(newTask);
-		if (!tasks) {
-			localStorage.setItem('tasks', JSON.stringify(taskList));
+		const tasksListOne = localStorage.getItem('tasks');
+		console.log(tasksListOne);
+		if (tasksListOne) {
+			tasks = JSON.parse(tasksListOne);
+			console.log('tasks', tasks);
+			tasks.push(newTask);
+			localStorage.setItem('tasks', JSON.stringify(tasks));
 		} else {
-			taskList = JSON.parse(tasks);
-			taskList.push(newTask);
-			localStorage.setItem('tasks', JSON.stringify(taskList));
+			tasks.push(newTask);
+			localStorage.setItem('tasks', JSON.stringify(tasks));
 		}
+		title = '';
+		content = '';
+		taskState = State.DRAFT;
 		modalnav = false;
 	}
 </script>
 
-<nav class="bg-gray-900 py-4 w-full overflow-hidden">
+<nav class="w-full overflow-hidden bg-gray-900 py-4">
 	<div class="container flex items-center justify-between">
 		<ul>
 			<li>
@@ -52,8 +54,8 @@
 
 {#if modalnav}
 	<Modal bind:modal={modalnav}>
-		<div class="relative h-full flex flex-col justify-between">
-			<div class="flex flex-col p-1 gap-2">
+		<div class="relative flex h-full flex-col justify-between">
+			<div class="flex flex-col gap-2 p-1">
 				<label for="title">Titel: </label>
 				<input bind:value={title} name="title" id="title" type="text" />
 				<label for="content">Content: </label>
@@ -67,7 +69,7 @@
 				</select>
 			</div>
 			<div class="flex flex-row justify-center pb-2">
-				<button class="border-2 bg-slate-300 w-1/2 h-12" onclick={addTask}>Add Task</button>
+				<button class="h-12 w-1/2 border-2 bg-slate-300" onclick={addTask}>Add Task</button>
 			</div>
 		</div>
 	</Modal>

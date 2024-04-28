@@ -4,7 +4,7 @@
 	import Modal from '../components/Modal.svelte';
 	import { State, type Task } from '$lib/types/tasks';
 
-	let allTasks: Task[] = [];
+	let allTasks: Task[] = $state([]);
 	const drafts: Task[] = $state([]);
 	const inProgress: Task[] = $state([]);
 	const done: Task[] = $state([]);
