@@ -3,6 +3,7 @@
 	import Modal from '../components/Modal.svelte';
 	import { State, type Task } from '$lib/types/tasks';
 
+	let { children } = $props();
 	let modalnav: boolean = $state(false);
 
 	let tasks: Task[] = $state([]);
@@ -50,7 +51,7 @@
 		</ul>
 	</div>
 </nav>
-<slot />
+{@render children()}
 
 {#if modalnav}
 	<Modal bind:modal={modalnav}>
