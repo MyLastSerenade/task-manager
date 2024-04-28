@@ -18,7 +18,7 @@
 
 	function checkIfTasksInStorage() {
 		allTasks = JSON.parse(localStorage.getItem('tasks') ?? '');
-		console.log(allTasks)
+		console.log(allTasks);
 		if (allTasks) {
 			allTasks.forEach((element) => {
 				if (element.taskState === State.DRAFT) {
@@ -45,7 +45,7 @@
 </script>
 
 <div class="h-full w-full">
-	<div class="p-4 w-full h-full flex flex-row gap-4 border-4 border-purple-900">
+	<div class="flex h-full w-full flex-row gap-4 border-4 border-purple-900 p-4">
 		<div class="flex w-1/4 flex-col gap-4">
 			<h2>Drafts</h2>
 			{#if drafts}
@@ -60,7 +60,7 @@
 			<h2>In Progress</h2>
 			{#if inProgress}
 				{#each inProgress as task, index}
-				<TaskCard {task} />
+					<TaskCard {task} />
 				{/each}
 			{:else}
 				<p>No in Progress Tasks available</p>
@@ -70,7 +70,7 @@
 			<h2>Done</h2>
 			{#if done}
 				{#each done as task, index}
-				<TaskCard {task} />
+					<TaskCard {task} />
 				{/each}
 			{:else}
 				<p>No Done Tasks available</p>
@@ -80,7 +80,7 @@
 			<h2>Canceled</h2>
 			{#if canceled}
 				{#each canceled as task, index}
-				<TaskCard {task} />
+					<TaskCard {task} />
 				{/each}
 			{:else}
 				<p>No Canceled Tasks available</p>

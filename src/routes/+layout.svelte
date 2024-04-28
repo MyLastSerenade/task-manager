@@ -1,13 +1,10 @@
 <script lang="ts">
-	import type { SubmitFunction } from '@sveltejs/kit';
 	import '../app.pcss';
 	import Modal from '../components/Modal.svelte';
-	import { applyAction, enhance } from '$app/forms';
 	import { State, type Task } from '$lib/types/tasks';
 
 	let modalnav: boolean = $state(false);
 
-	let newTask: Task;
 
 	let title: string = $state('');
 	let content: string = $state('');
@@ -19,7 +16,7 @@
 	}
 
 	function addTask() {
-		const tasks = localStorage.getItem('tasks');
+		const tasks = $state(localStorage.getItem('tasks'));
 		let taskList: Task[] = [];
 		const newTask = {
 			title: title,
@@ -34,6 +31,7 @@
 			taskList.push(newTask);
 			localStorage.setItem('tasks', JSON.stringify(taskList));
 		}
+		modalnav = false;
 	}
 </script>
 
@@ -54,19 +52,23 @@
 
 {#if modalnav}
 	<Modal bind:modal={modalnav}>
-		<div>
-			<label for="title">Titel: </label>
-			<input bind:value={title} name="title" id="title" type="text" />
-			<label for="content">Content: </label>
-			<input bind:value={content} name="content" id="content" type="text" />
-			<label for="state">State: </label>
-			<select bind:value={taskState} name="state" id="state">
-				<option value="IN_PROGRESS">In Progress</option>
-				<option value="CANCELED">Canceled</option>
-				<option value="DONE">Done</option>
-				<option value="DRAFT">Draft</option>
-			</select>
-			<button onclick={addTask}>Add Task</button>
+		<div class="relative h-full flex flex-col justify-between">
+			<div class="flex flex-col p-1 gap-2">
+				<label for="title">Titel: </label>
+				<input bind:value={title} name="title" id="title" type="text" />
+				<label for="content">Content: </label>
+				<input bind:value={content} name="content" id="content" type="text" />
+				<label for="state">State: </label>
+				<select bind:value={taskState} name="state" id="state">
+					<option value="IN_PROGRESS">In Progress</option>
+					<option value="CANCELED">Canceled</option>
+					<option value="DONE">Done</option>
+					<option value="DRAFT">Draft</option>
+				</select>
+			</div>
+			<div class="flex flex-row justify-center pb-2">
+				<button class="border-2 bg-slate-300 w-1/2 h-12" onclick={addTask}>Add Task</button>
+			</div>
 		</div>
 	</Modal>
 {/if}

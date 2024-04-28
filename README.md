@@ -1,4 +1,5 @@
 # Project Overview
+
 This is going to be a Task Manager/Todo App/Kanban Board.
 This implementation is going to use Local Storage to save/manage Tasks
 
@@ -11,3 +12,4 @@ Once you've created a project and installed dependencies with `npm install` (or 
 ```bash
 npm run dev
 
+```
