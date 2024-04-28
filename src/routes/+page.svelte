@@ -3,24 +3,24 @@
 	import TaskCard from '../components/TaskCard.svelte';
 	import Modal from '../components/Modal.svelte';
 	import { State, type Task } from '$lib/types/tasks';
+	import { getTasks } from '$lib/tasks.svelte.ts';
 
-	let allTasks: Task[] = $state([]);
 	const drafts: Task[] = $state([]);
 	const inProgress: Task[] = $state([]);
 	const done: Task[] = $state([]);
 	const canceled: Task[] = $state([]);
 
-	let modal: boolean = false;
+	let modal: boolean = $state(false);
+	let tasks = new getTasks([]);
 
 	onMount(() => {
 		checkIfTasksInStorage();
 	});
 
 	function checkIfTasksInStorage() {
-		allTasks = JSON.parse(localStorage.getItem('tasks') ?? '');
-		console.log(allTasks);
-		if (allTasks) {
-			allTasks.forEach((element) => {
+		tasks.tasks = JSON.parse(localStorage.getItem('tasks') ?? '');
+		if (tasks.tasks.length > 0) {
+			tasks.tasks.forEach((element) => {
 				if (element.taskState === State.DRAFT) {
 					drafts.push(element);
 					return;
@@ -38,8 +38,11 @@
 					return;
 				}
 			});
+		} else {
+			modal = true;
+			return;
 		}
-		modal = true;
+
 		return;
 	}
 </script>
@@ -91,6 +94,6 @@
 
 {#if modal}
 	<Modal bind:modal>
-		<p>test</p>
+		<p>tasks</p>
 	</Modal>
 {/if}

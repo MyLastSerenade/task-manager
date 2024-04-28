@@ -2,14 +2,16 @@
 	import '../app.pcss';
 	import Modal from '../components/Modal.svelte';
 	import { State, type Task } from '$lib/types/tasks';
+	import { getTasks } from '$lib/tasks.svelte';
 
 	let { children } = $props();
 	let modalnav: boolean = $state(false);
 
-	let tasks: Task[] = $state([]);
+	let tasks = new getTasks([]);
 	let title: string = $state('');
 	let content: string = $state('');
 	let taskState: State = $state(<State>'IN_PROGRESS');
+
 	function onclick() {
 		modalnav = true;
 	}
@@ -21,15 +23,13 @@
 			taskState: taskState
 		};
 		const tasksListOne = localStorage.getItem('tasks');
-		console.log(tasksListOne);
-		if (tasksListOne) {
-			tasks = JSON.parse(tasksListOne);
-			console.log('tasks', tasks);
-			tasks.push(newTask);
-			localStorage.setItem('tasks', JSON.stringify(tasks));
+		if (tasksListOne !== null && tasksListOne !== '{}') {
+			tasks.tasks = JSON.parse(tasksListOne);
+			tasks.tasks.push(newTask);
+			localStorage.setItem('tasks', JSON.stringify(tasks.tasks));
 		} else {
-			tasks.push(newTask);
-			localStorage.setItem('tasks', JSON.stringify(tasks));
+			tasks.tasks.push(newTask);
+			localStorage.setItem('tasks', JSON.stringify(tasks.tasks));
 		}
 		title = '';
 		content = '';
