@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import TaskCard from '../components/TaskCard.svelte';
 	import Modal from '../components/Modal.svelte';
 	import { State, tasks, type Task } from '$lib/types/tasks';
@@ -10,7 +10,14 @@
 	const canceled: Task[] = $state([]);
 
 	let modal: boolean = $state(false);
-	let tasksFromStore = $tasks;
+	let tasksFromStore: Task[] = $state([]);
+	let unsubscribe = tasks.subscribe((task) => {
+		tasksFromStore = task;
+	});
+
+	onDestroy(unsubscribe);
+
+	$inspect($tasks.length);
 
 	onMount(() => {
 		checkIfTasksInStorage();

@@ -21,6 +21,7 @@
 			taskState: taskState
 		};
 		$tasks.push(newTask);
+		tasks.update((task) => ($tasks = task));
 		localStorage.setItem('tasks', JSON.stringify($tasks));
 		title = '';
 		content = '';
