@@ -17,7 +17,7 @@
 	}
 </script>
 
-<div class="h-full w-full rounded-lg bg-slate-400 p-4 shadow-lg shadow-black">
+<div class="w-full rounded-lg bg-slate-400 p-4 shadow-lg shadow-black">
 	<div class="flex flex-row justify-between">
 		<h3>{props.task.title}</h3>
 		<p class={getTaskStateColor(props.task.taskState) + ' text-lg font-bold'}>

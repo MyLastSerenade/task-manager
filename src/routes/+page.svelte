@@ -2,8 +2,7 @@
 	import { onMount } from 'svelte';
 	import TaskCard from '../components/TaskCard.svelte';
 	import Modal from '../components/Modal.svelte';
-	import { State, type Task } from '$lib/types/tasks';
-	import { getTasks } from '$lib/tasks.svelte.ts';
+	import { State, tasks, type Task } from '$lib/types/tasks';
 
 	const drafts: Task[] = $state([]);
 	const inProgress: Task[] = $state([]);
@@ -11,16 +10,15 @@
 	const canceled: Task[] = $state([]);
 
 	let modal: boolean = $state(false);
-	let tasks = new getTasks([]);
+	let tasksFromStore = $tasks;
 
 	onMount(() => {
 		checkIfTasksInStorage();
 	});
 
 	function checkIfTasksInStorage() {
-		tasks.tasks = JSON.parse(localStorage.getItem('tasks') ?? '');
-		if (tasks.tasks.length > 0) {
-			tasks.tasks.forEach((element) => {
+		if (tasksFromStore.length > 0) {
+			tasksFromStore.forEach((element) => {
 				if (element.taskState === State.DRAFT) {
 					drafts.push(element);
 					return;
