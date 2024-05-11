@@ -17,6 +17,9 @@
 
 	function addTask() {
 		const newTask = {
+			id: $tasks.length > 0 ? $tasks.map((task) => {
+				return Math.max(task.id)
+			})[0] + 1 : 1,
 			title: title,
 			content: content,
 			taskState: taskState
@@ -70,3 +73,9 @@
 		</div>
 	</Modal>
 {/if}
+
+<style>
+	select, input {
+		color:black
+	}
+</style>
