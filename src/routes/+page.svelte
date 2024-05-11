@@ -53,7 +53,8 @@
 </script>
 
 <div class="h-full w-full">
-	<div class="flex h-full w-full flex-row gap-4 border-4 border-purple-900 p-4">
+	<div class="flex h-full w-full flex-row gap-4 border-4 border-tertiary p-4
+	rounded-xl">
 		<div class="flex w-1/4 flex-col gap-4">
 			<h2>Drafts</h2>
 			{#if drafts}
