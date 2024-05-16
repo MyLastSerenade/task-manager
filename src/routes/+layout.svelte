@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.pcss';
-	import '../styles/general.scss'
+	import '../styles/general.scss';
 	import Modal from '../components/Modal.svelte';
 	import { State, tasks, type Task } from '$lib/types/tasks';
 
@@ -17,9 +17,12 @@
 
 	function addTask() {
 		const newTask = {
-			id: $tasks.length > 0 ? $tasks.map((task) => {
-				return Math.max(task.id)
-			})[0] + 1 : 1,
+			id:
+				$tasks.length > 0
+					? $tasks.map((task) => {
+							return Math.max(task.id);
+						})[0] + 1
+					: 1,
 			title: title,
 			content: content,
 			taskState: taskState
@@ -34,16 +37,15 @@
 	}
 </script>
 
-<nav class="w-full overflow-hidden bg-gray-900 p-4">
+<nav class="bg-gray-900 w-full overflow-hidden p-4">
 	<div class="container flex items-center justify-between">
 		<ul>
 			<li>
 				<button
 					{onclick}
-					class="mr-4 rounded-md bg-gray-800 px-4 py-2
-					bg-secondary 
-					hover:opacity-[.5] hover:text-white"
-					>Create Task</button
+					class="bg-gray-800 hover:text-white mr-4 rounded-md bg-secondary
+					px-4
+					py-2 hover:opacity-[.5]">Create Task</button
 				>
 			</li>
 		</ul>
@@ -68,14 +70,15 @@
 				</select>
 			</div>
 			<div class="flex flex-row justify-center pb-2">
-				<button class="h-12 w-1/2 border-2 bg-slate-300" onclick={addTask}>Add Task</button>
+				<button class="bg-slate-300 h-12 w-1/2 border-2" onclick={addTask}>Add Task</button>
 			</div>
 		</div>
 	</Modal>
 {/if}
 
 <style>
-	select, input {
-		color:black
+	select,
+	input {
+		color: black;
 	}
 </style>

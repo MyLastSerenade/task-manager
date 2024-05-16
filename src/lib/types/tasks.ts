@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export type Task = {
-	id: number,
+	id: number;
 	title: string;
 	content: string;
 	taskState: State;
@@ -17,7 +17,7 @@ export enum State {
 const tasksFromStorage: string | null | undefined =
 	typeof window !== 'undefined' ? localStorage.getItem('tasks') : null;
 
-const task:Task[] = [];
+const task: Task[] = [];
 
 const initialTasks: Task[] = tasksFromStorage ? JSON.parse(tasksFromStorage) : task;
 
